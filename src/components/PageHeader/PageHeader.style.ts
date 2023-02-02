@@ -5,7 +5,7 @@ export const HeaderContainer = styled("header")({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  backgroundColor: "#e3eae7",
+  backgroundColor: "#dbf5eb",
   "& #btn-mobile": {
     display: "none",
     "@media (max-width: 900px)": {
