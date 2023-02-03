@@ -1,4 +1,10 @@
-import { Box, IconButton, TextField, Tooltip } from "@mui/material";
+import {
+  Autocomplete,
+  Box,
+  IconButton,
+  TextField,
+  Tooltip,
+} from "@mui/material";
 import React from "react";
 import {
   ActivityCardContainer,
@@ -40,7 +46,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
         <TextField
           label="Title"
           variant="outlined"
-          className="activityTitle"
+          className="activityPropertiesLabel"
           onChange={handleTitle}
           value={title}
         />
@@ -51,7 +57,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               value={date}
               onChange={handleDate}
               renderInput={(params) => <TextField {...params} />}
-              className="activityDate"
+              className="activityPropertiesLabel"
               minDate={dayjs()}
             />
           ) : (
@@ -63,10 +69,18 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               inputFormat="YYYY/MM/DD hh:mm a"
               mask="____/__/__ __:__ _M"
               renderInput={(params) => <TextField {...params} />}
-              className="activityDate"
+              className="activityPropertiesLabel"
             />
           )}
         </LocalizationProvider>
+        <Autocomplete
+          options={[
+            { label: "demo", year: 1994 },
+            { label: "2demo2", year: 1994 },
+          ]}
+          renderInput={(params) => <TextField {...params} label="Project" />}
+          className="activityPropertiesLabel"
+        />
         <Box className="actionActivityWrapper">
           {actionType === "add" ? (
             <Tooltip title="Add">

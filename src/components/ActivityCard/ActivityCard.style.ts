@@ -20,11 +20,8 @@ export const ActivityCardContainer = styled(Box)({
 export const ActivityCardWrapper = styled(Box)({
   display: "flex",
   flexGrow: "1",
-  "& .activityTitle": {
-    width: "-webkit-fill-available",
-    margin: "5px",
-  },
-  "& .activityDate": {
+
+  "& .activityPropertiesLabel": {
     width: "-webkit-fill-available",
     margin: "5px",
   },
