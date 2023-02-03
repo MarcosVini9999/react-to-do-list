@@ -4,7 +4,7 @@ import React from "react";
 export const Inbox: React.FC = () => {
   return (
     <React.Fragment>
-      <ActivityCard />
+      <ActivityCard actionType="add" />
     </React.Fragment>
   );
 };

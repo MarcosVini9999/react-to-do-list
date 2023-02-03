@@ -12,7 +12,7 @@ export const ActivityCardContainer = styled(Box)({
   "& .checkBoxWrapper": {
     margin: "auto",
   },
-  "& .deleteActivityWrapper": {
+  "& .actionActivityWrapper": {
     margin: "auto",
   },
 });
