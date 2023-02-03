@@ -22,11 +22,9 @@ export const ActivityCardWrapper = styled(Box)({
   flexGrow: "1",
   "& .activityTitle": {
     width: "-webkit-fill-available",
-    minWidth: "246px",
     margin: "5px",
   },
   "& .activityDate": {
-    minWidth: "246px",
     width: "-webkit-fill-available",
     margin: "5px",
   },

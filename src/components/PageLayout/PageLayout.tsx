@@ -1,4 +1,4 @@
-import { PageFooter, PageHeader, SideMenu } from "@/components";
+import { PageHeader, SideMenu } from "@/components";
 import React from "react";
 import { Outlet } from "react-router-dom";
 import { PageLayoutContainer, PageLayoutWrapper } from "./PageLayout.style";
@@ -12,7 +12,6 @@ export const PageLayout: React.FC = () => {
       <PageLayoutWrapper>
         <PageHeader menuId={menuId} />
         <Outlet />
-        <PageFooter />
       </PageLayoutWrapper>
     </PageLayoutContainer>
   );

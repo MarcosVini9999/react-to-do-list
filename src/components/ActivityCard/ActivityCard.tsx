@@ -13,11 +13,11 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 interface ActivityCardProps {
-  actionType: string;
+  actionType?: "add" | "delete";
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
-  actionType = "add" || "delete",
+  actionType = "delete",
 }) => {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs());
   const [title, setTitle] = React.useState<String | null>();
@@ -31,9 +31,11 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
 
   return (
     <ActivityCardContainer>
-      <Box className="checkBoxWrapper">
-        <Checkbox />
-      </Box>
+      {actionType !== "add" && (
+        <Box className="checkBoxWrapper">
+          <Checkbox />
+        </Box>
+      )}
       <ActivityCardWrapper>
         <TextField
           label="Title"
@@ -53,7 +55,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           />
         </LocalizationProvider>
         <Box className="actionActivityWrapper">
-          {actionType == "add" ? (
+          {actionType === "add" ? (
             <Tooltip title="Add">
               <IconButton>
                 <AddCircleIcon />
