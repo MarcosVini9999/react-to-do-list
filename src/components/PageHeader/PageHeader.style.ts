@@ -16,4 +16,11 @@ export const HeaderContainer = styled("header")({
       display: "block",
     },
   },
+  "& #logo": {
+    color: "black",
+    textDecoration: "none",
+    font: "italic 1.2em 'Fira Sans', serif",
+    padding: "15px",
+    textAlign: "right",
+  },
 });

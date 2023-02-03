@@ -19,8 +19,8 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ menuId }) => {
       <Button id="btn-mobile" onClick={toggleMenu}>
         button
       </Button>
-      <Link to="/" className="logo">
-        LOGO
+      <Link to="/" id="logo">
+        YOUR TO DO LIST
       </Link>
     </HeaderContainer>
   );
