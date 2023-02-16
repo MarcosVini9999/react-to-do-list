@@ -13,6 +13,22 @@ export const SideMenuContainer = styled(Box)({
   },
 });
 
+export const SideMenuWrapper = styled(Box)({
+  margin: "15px",
+  "& #inbox-filter": {
+    "& button": {
+      width: "100%",
+      color: "black",
+    },
+  },
+  "& .borderBox": {
+    backgroundColor: "rgba(0, 0, 0, 0.42)",
+    height: "1px",
+    width: "100%",
+    borderRadius: "10px",
+  },
+});
+
 export const SideMenuFooterWrapper = styled(Box)({
   display: "flex",
   alignItems: "center",
@@ -35,4 +51,11 @@ export const SideMenuFooterWrapper = styled(Box)({
   "& a:hover": {
     color: "#fe6960",
   },
+});
+
+export const AddProjectWrapper = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: "2px",
 });
