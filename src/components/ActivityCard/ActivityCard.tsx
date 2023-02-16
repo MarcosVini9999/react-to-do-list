@@ -18,12 +18,23 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { MobileDateTimePicker, DateTimePicker } from "@mui/x-date-pickers";
 
+interface AutocompleteProps {
+  label: string;
+}
 interface ActivityCardProps {
   actionType?: "add" | "delete";
+  taskTitle?: string;
+  dateTime?: string;
+  projects: Array<AutocompleteProps>;
+  taskProject?: AutocompleteProps;
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   actionType = "delete",
+  taskTitle,
+  dateTime,
+  projects,
+  taskProject,
 }) => {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs());
   const [title, setTitle] = React.useState<String | null>();
@@ -34,6 +45,10 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(event.target.value.toUpperCase());
   };
+
+  React.useEffect(() => {
+    if (dateTime) setDate(dayjs(dateTime));
+  });
 
   return (
     <ActivityCardContainer>
@@ -49,6 +64,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           className="activityPropertiesLabel"
           onChange={handleTitle}
           value={title}
+          defaultValue={taskTitle}
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {document.body.clientWidth > 900 ? (
@@ -58,14 +74,12 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               onChange={handleDate}
               renderInput={(params) => <TextField {...params} />}
               className="activityPropertiesLabel"
-              minDate={dayjs()}
             />
           ) : (
             <MobileDateTimePicker
               value={date}
               onChange={handleDate}
               label="With error handler"
-              minDate={dayjs("2018-01-01T00:00")}
               inputFormat="YYYY/MM/DD hh:mm a"
               mask="____/__/__ __:__ _M"
               renderInput={(params) => <TextField {...params} />}
@@ -74,12 +88,10 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           )}
         </LocalizationProvider>
         <Autocomplete
-          options={[
-            { label: "demo", year: 1994 },
-            { label: "2demo2", year: 1994 },
-          ]}
+          options={projects}
           renderInput={(params) => <TextField {...params} label="Project" />}
           className="activityPropertiesLabel"
+          defaultValue={taskProject}
         />
         <Box className="actionActivityWrapper">
           {actionType === "add" ? (

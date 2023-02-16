@@ -1,14 +1,12 @@
 import { Button } from "@mui/material";
 import React from "react";
-import { ProjectsWrapper } from "./ProjectsDisplayed.style";
+import { ProjectsWrapper } from "./ProjectList.style";
 
-interface ProjectsDisplayedProps {
+interface ProjectListProps {
   projects: Array<string>;
 }
 
-export const ProjectsDisplayed: React.FC<ProjectsDisplayedProps> = ({
-  projects,
-}) => {
+export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   return (
     <ProjectsWrapper>
       {projects.map((project) => (

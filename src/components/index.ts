@@ -4,3 +4,4 @@ export { PageLayout } from "./PageLayout/PageLayout";
 export { SideMenu } from "./SideMenu/SideMenu";
 export { ActivityCard } from "./ActivityCard/ActivityCard";
 export { ProjectList } from "./ProjectList/ProjectList";
+export { ToDoList } from "./ToDoList/ToDoList";
