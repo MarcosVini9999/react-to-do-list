@@ -8,7 +8,7 @@ import {
   SideMenuWrapper,
 } from "./SideMenu.style";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { ProjectsDisplayed } from "@/components";
+import { ProjectList } from "@/components";
 import { Button } from "@mui/material";
 
 interface SideMenuProps {
@@ -61,7 +61,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
               <AddCircleIcon />
             </IconButton>
           </AddProjectWrapper>
-          <ProjectsDisplayed projects={projects} />
+          <ProjectList projects={projects} />
         </dl>
       </SideMenuWrapper>
       <SideMenuFooterWrapper>

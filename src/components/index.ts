@@ -3,4 +3,4 @@ export { PageHeader } from "./PageHeader/PageHeader";
 export { PageLayout } from "./PageLayout/PageLayout";
 export { SideMenu } from "./SideMenu/SideMenu";
 export { ActivityCard } from "./ActivityCard/ActivityCard";
-export { ProjectsDisplayed } from "./ProjectsDisplayed/ProjectsDisplayed";
+export { ProjectList } from "./ProjectList/ProjectList";
