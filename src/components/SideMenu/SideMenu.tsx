@@ -10,17 +10,18 @@ import {
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { ProjectList } from "@/components";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/stores";
+import { addProject } from "@/stores/features/projectSlicer";
 
 interface SideMenuProps {
   id: string;
 }
 
 export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
-  const [projects, setProjects] = React.useState([
-    "job",
-    "homework",
-    "college",
-  ]);
+  const dispatch = useDispatch();
+  const projects = useSelector((state: RootState) => state.projects);
+
   const [newProject, setNewProject] = React.useState("");
 
   const addProjectOnChange = (
@@ -32,7 +33,7 @@ export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
   };
   const addProjectOnClick = () => {
     if (newProject) {
-      setProjects([...projects, newProject]);
+      dispatch(addProject(newProject));
     }
   };
 

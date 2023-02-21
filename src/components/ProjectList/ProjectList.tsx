@@ -3,14 +3,14 @@ import React from "react";
 import { ProjectsWrapper } from "./ProjectList.style";
 
 interface ProjectListProps {
-  projects: Array<string>;
+  projects: Array<{ label: string }>;
 }
 
 export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   return (
     <ProjectsWrapper>
       {projects.map((project) => (
-        <Button>{project}</Button>
+        <Button>{project.label}</Button>
       ))}
     </ProjectsWrapper>
   );
