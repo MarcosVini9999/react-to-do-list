@@ -20,13 +20,13 @@ export const ToDoList: React.FC<ToDoListProps> = ({ projects }) => {
   console.log(projectNames);
   return (
     <ToDoListWrapper>
-      {projects.map((tasks) =>
-        tasks.tasks.map((element) => (
+      {projects.map((toDoList) =>
+        toDoList.tasks.map((task) => (
           <ActivityCard
             actionType="delete"
-            taskTitle={element.title}
-            dateTime={element.dateTime}
-            taskProject={tasks.projectName}
+            taskTitle={task.title}
+            dateTime={task.dateTime}
+            taskProject={toDoList.projectName}
             projectNames={projectNames}
           />
         ))
