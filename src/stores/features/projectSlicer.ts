@@ -1,15 +1,41 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [{ label: "home" }, { label: "Studies" }];
+const initialState = [
+  {
+    projectName: "home",
+    tasks: [
+      {
+        title: "buy X things",
+        dateTime: "2018-01-01T00:00",
+      },
+    ],
+  },
+  {
+    projectName: "Studies",
+    tasks: [
+      {
+        title: "math test",
+        dateTime: "2018-01-01T00:00",
+      },
+    ],
+  },
+];
 
 export const projectSlicer = createSlice({
   name: "projects",
   initialState,
   reducers: {
     addProject: (state, action) => {
-      if (!state.some((project) => project.label === action.payload)) {
+      if (
+        !state.some(
+          (element) =>
+            element.projectName === action.payload.projectName &&
+            element.tasks === action.payload.tasks
+        )
+      ) {
         state.push({
-          label: action.payload,
+          projectName: action.payload.projectName,
+          tasks: [],
         });
       }
     },

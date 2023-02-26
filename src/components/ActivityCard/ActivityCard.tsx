@@ -18,22 +18,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { MobileDateTimePicker, DateTimePicker } from "@mui/x-date-pickers";
 
-interface AutocompleteProps {
-  label: string;
-}
 interface ActivityCardProps {
   actionType?: "add" | "delete";
   taskTitle?: string;
   dateTime?: string;
-  projects: Array<AutocompleteProps>;
-  taskProject?: AutocompleteProps;
+  projectNames: Array<string>;
+  taskProject?: string;
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   actionType = "delete",
   taskTitle,
   dateTime,
-  projects,
+  projectNames,
   taskProject,
 }) => {
   const [date, setDate] = React.useState<Dayjs | null>(dayjs());
@@ -88,7 +85,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           )}
         </LocalizationProvider>
         <Autocomplete
-          options={projects}
+          options={projectNames}
           renderInput={(params) => <TextField {...params} label="Project" />}
           className="activityPropertiesLabel"
           defaultValue={taskProject}

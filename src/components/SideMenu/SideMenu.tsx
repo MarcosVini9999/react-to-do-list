@@ -20,9 +20,10 @@ interface SideMenuProps {
 
 export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
   const dispatch = useDispatch();
-  const projects = useSelector((state: RootState) => state.projects);
-
   const [newProject, setNewProject] = React.useState("");
+  const projects = useSelector((state: RootState) =>
+    state.projects.map((project) => project.projectName)
+  );
 
   const addProjectOnChange = (
     project: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
@@ -33,7 +34,12 @@ export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
   };
   const addProjectOnClick = () => {
     if (newProject) {
-      dispatch(addProject(newProject));
+      dispatch(
+        addProject({
+          projectName: newProject,
+          tasks: [],
+        })
+      );
     }
   };
 
