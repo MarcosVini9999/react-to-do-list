@@ -10,7 +10,6 @@ interface PageHeaderProps {
 export const PageHeader: React.FC<PageHeaderProps> = ({ menuId }) => {
   const toggleMenu = () => {
     const menu = document.getElementById(menuId);
-    console.log(menu);
     menu?.classList.toggle("active");
   };
 

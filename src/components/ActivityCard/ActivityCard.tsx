@@ -24,6 +24,11 @@ interface ActivityCardProps {
   dateTime?: string;
   projectNames: Array<string>;
   taskProject?: string;
+  onAddTask?: (
+    taskTitle: string,
+    dateTime: string,
+    taskProject: string
+  ) => void;
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
@@ -32,20 +37,43 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   dateTime,
   projectNames,
   taskProject,
+  onAddTask,
 }) => {
-  const [date, setDate] = React.useState<Dayjs | null>(dayjs());
-  const [title, setTitle] = React.useState<String | null>();
+  const [date, setDate] = React.useState<Dayjs | null>(
+    dayjs(dateTime ? dateTime : undefined)
+  );
+  const [title, setTitle] = React.useState<string>(taskTitle ? taskTitle : "");
+  const [project, setProject] = React.useState<string>(
+    taskProject ? taskProject : ""
+  );
+  const [newProject, setNewProject] = React.useState<string>("");
 
   const handleDate = (date: Dayjs | null) => {
     setDate(date);
   };
   const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value.toUpperCase());
+    setTitle(event.target.value);
   };
-
-  React.useEffect(() => {
-    if (dateTime) setDate(dayjs(dateTime));
-  });
+  const handleProject = (
+    event: React.ChangeEvent<{}>,
+    newProject: string | null
+  ) => {
+    setProject(newProject ? newProject : "");
+  };
+  const handleProjectInputChange = (
+    event: React.ChangeEvent<{}>,
+    newInputValue: string
+  ) => {
+    setNewProject(newInputValue);
+  };
+  const handleAddClick = () => {
+    if (title && date && project) {
+      if (onAddTask) onAddTask(title, date.format(), project);
+      setTitle("");
+      setDate(dayjs());
+      setProject("");
+    }
+  };
 
   return (
     <ActivityCardContainer>
@@ -61,7 +89,6 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           className="activityPropertiesLabel"
           onChange={handleTitle}
           value={title}
-          defaultValue={taskTitle}
         />
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {document.body.clientWidth > 900 ? (
@@ -85,14 +112,18 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           )}
         </LocalizationProvider>
         <Autocomplete
-          options={projectNames}
+          options={[...projectNames, newProject]}
           renderInput={(params) => <TextField {...params} label="Project" />}
           className="activityPropertiesLabel"
-          defaultValue={taskProject}
+          value={project}
+          onChange={handleProject}
+          freeSolo
+          inputValue={newProject}
+          onInputChange={handleProjectInputChange}
         />
         <Box className="actionActivityWrapper">
           {actionType === "add" ? (
-            <Tooltip title="Add">
+            <Tooltip title="Add" onClick={handleAddClick}>
               <IconButton>
                 <AddCircleIcon />
               </IconButton>

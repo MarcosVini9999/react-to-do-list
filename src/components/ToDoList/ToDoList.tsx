@@ -17,7 +17,6 @@ interface ToDoListProps {
 
 export const ToDoList: React.FC<ToDoListProps> = ({ projects }) => {
   const projectNames = projects.map((project) => project.projectName);
-  console.log(projectNames);
   return (
     <ToDoListWrapper>
       {projects.map((toDoList) =>
