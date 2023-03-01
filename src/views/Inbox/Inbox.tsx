@@ -2,7 +2,7 @@ import React from "react";
 import { ActivityCard, ToDoList } from "@/components";
 import { RootState } from "@/stores";
 import { useDispatch, useSelector } from "react-redux";
-import { addTask } from "@/stores/features/projectSlicer";
+import { addTask, removeTask } from "@/stores/features/projectSlicer";
 
 export const Inbox: React.FC = () => {
   const dispatch = useDispatch();
@@ -25,6 +25,15 @@ export const Inbox: React.FC = () => {
     );
   };
 
+  const hadleRemoveTask = (projectName: string, taskTitle: string) => {
+    dispatch(
+      removeTask({
+        title: taskTitle,
+        projectName: projectName,
+      })
+    );
+  };
+
   return (
     <React.Fragment>
       <ActivityCard
@@ -32,7 +41,7 @@ export const Inbox: React.FC = () => {
         projectNames={projectNames}
         onAddTask={handleAddTask}
       />
-      <ToDoList projects={projects} />
+      <ToDoList projects={projects} onRemoveTask={hadleRemoveTask} />
     </React.Fragment>
   );
 };

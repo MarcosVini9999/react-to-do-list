@@ -69,7 +69,8 @@ export const projectSlicer = createSlice({
       }
     },
     removeTask: (state, action) => {
-      const { projectName, taskTitle } = action.payload;
+      const projectName = action.payload.projectName;
+      const taskTitle = action.payload.title;
       const projectIndex = state.findIndex(
         (project) => project.projectName === projectName
       );

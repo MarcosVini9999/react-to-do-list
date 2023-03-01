@@ -13,9 +13,13 @@ interface Project {
 
 interface ToDoListProps {
   projects: Array<Project>;
+  onRemoveTask: (projectName: string, taskTitle: string) => void;
 }
 
-export const ToDoList: React.FC<ToDoListProps> = ({ projects }) => {
+export const ToDoList: React.FC<ToDoListProps> = ({
+  projects,
+  onRemoveTask,
+}) => {
   const projectNames = projects.map((project) => project.projectName);
   return (
     <ToDoListWrapper>
@@ -27,6 +31,7 @@ export const ToDoList: React.FC<ToDoListProps> = ({ projects }) => {
             dateTime={task.dateTime}
             taskProject={toDoList.projectName}
             projectNames={projectNames}
+            onRemoveTask={onRemoveTask}
           />
         ))
       )}

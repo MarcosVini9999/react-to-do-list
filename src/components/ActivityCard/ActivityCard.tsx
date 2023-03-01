@@ -29,6 +29,7 @@ interface ActivityCardProps {
     dateTime: string,
     taskProject: string
   ) => void;
+  onRemoveTask?: (projectName: string, taskTitle: string) => void;
 }
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
@@ -38,6 +39,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
   projectNames,
   taskProject,
   onAddTask,
+  onRemoveTask,
 }) => {
   const [date, setDate] = React.useState<Dayjs | null>(
     dayjs(dateTime ? dateTime : undefined)
@@ -72,6 +74,11 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
       setTitle("");
       setDate(dayjs());
       setProject("");
+    }
+  };
+  const handleRemoveProject = () => {
+    if (title && date && project) {
+      if (onRemoveTask) onRemoveTask(project, title);
     }
   };
 
@@ -129,7 +136,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Delete">
+            <Tooltip title="Delete" onClick={handleRemoveProject}>
               <IconButton>
                 <DeleteIcon />
               </IconButton>
