@@ -1,17 +1,43 @@
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip, Typography } from "@mui/material";
 import React from "react";
-import { ProjectsWrapper } from "./ProjectList.style";
+import { ProjectButtonWrapper, ProjectsContainer } from "./ProjectList.style";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useDispatch, useSelector } from "react-redux";
+import { removeProject } from "@/stores/features/projectSlicer";
 
 interface ProjectListProps {
   projects: Array<string>;
 }
 
 export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+  const dispatch = useDispatch();
+  const hadleRemoveProject = (projectName: string) => {
+    dispatch(
+      removeProject({
+        projectName: projectName,
+      })
+    );
+  };
+
   return (
-    <ProjectsWrapper>
+    <ProjectsContainer>
       {projects.map((project) => (
-        <Button>{project}</Button>
+        <ProjectButtonWrapper title={project.toUpperCase()}>
+          <Typography>{project}</Typography>
+          <Button>
+            <Tooltip
+              title=""
+              onClick={() => {
+                hadleRemoveProject(project);
+              }}
+            >
+              <IconButton>
+                <DeleteIcon />
+              </IconButton>
+            </Tooltip>
+          </Button>
+        </ProjectButtonWrapper>
       ))}
-    </ProjectsWrapper>
+    </ProjectsContainer>
   );
 };
