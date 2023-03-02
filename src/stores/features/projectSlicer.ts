@@ -28,9 +28,7 @@ export const projectSlicer = createSlice({
     addProject: (state, action) => {
       if (
         !state.some(
-          (element) =>
-            element.projectName === action.payload.projectName &&
-            element.tasks === action.payload.tasks
+          (element) => element.projectName === action.payload.projectName
         )
       ) {
         state.push({
