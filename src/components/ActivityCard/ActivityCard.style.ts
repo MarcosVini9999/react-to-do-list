@@ -14,6 +14,12 @@ export const ActivityCardContainer = styled(Box)({
   },
   "& .actionActivityWrapper": {
     margin: "auto",
+    "& button": {
+      color: "#808080",
+    },
+    "& :hover": {
+      color: "#363636",
+    },
   },
 });
 

@@ -8,6 +8,7 @@ interface Tasks {
 }
 interface Project {
   projectName: string;
+  filter: boolean;
   tasks: Array<Tasks>;
 }
 
@@ -23,17 +24,20 @@ export const ToDoList: React.FC<ToDoListProps> = ({
   const projectNames = projects.map((project) => project.projectName);
   return (
     <ToDoListWrapper>
-      {projects.map((toDoList) =>
-        toDoList.tasks.map((task) => (
-          <ActivityCard
-            actionType="delete"
-            taskTitle={task.title}
-            dateTime={task.dateTime}
-            taskProject={toDoList.projectName}
-            projectNames={projectNames}
-            onRemoveTask={onRemoveTask}
-          />
-        ))
+      {projects.map((project, projectIndex) =>
+        project.filter
+          ? project.tasks.map((task, taskIndex) => (
+              <ActivityCard
+                key={Number(projectIndex.toString() + taskIndex.toString())}
+                actionType="delete"
+                taskTitle={task.title}
+                dateTime={task.dateTime}
+                taskProject={project.projectName}
+                projectNames={projectNames}
+                onRemoveTask={onRemoveTask}
+              />
+            ))
+          : null
       )}
     </ToDoListWrapper>
   );
