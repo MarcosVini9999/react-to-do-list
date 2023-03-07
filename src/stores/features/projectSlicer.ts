@@ -3,21 +3,21 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [
   {
     projectName: "home",
-    filter: true,
     tasks: [
       {
         title: "buy X things",
         dateTime: "2018-01-01T00:00",
+        filter: true,
       },
     ],
   },
   {
     projectName: "Studies",
-    filter: true,
     tasks: [
       {
         title: "math test",
         dateTime: "2018-01-01T00:00",
+        filter: true,
       },
     ],
   },
@@ -35,7 +35,6 @@ export const projectSlicer = createSlice({
       ) {
         state.push({
           projectName: action.payload.projectName,
-          filter: true,
           tasks: [],
         });
       }
@@ -56,15 +55,16 @@ export const projectSlicer = createSlice({
         state[projectIndex].tasks.push({
           title: action.payload.title,
           dateTime: action.payload.dateTime,
+          filter: true,
         });
       } else {
         state.push({
           projectName: action.payload.projectName,
-          filter: true,
           tasks: [
             {
               title: action.payload.title,
               dateTime: action.payload.dateTime,
+              filter: true,
             },
           ],
         });
@@ -88,11 +88,13 @@ export const projectSlicer = createSlice({
     filterProjectName: (state, action) => {
       const projectName = action.payload.projectName;
       state.forEach((project) => {
-        if (project.projectName.toLowerCase() === projectName.toLowerCase()) {
-          project.filter = true;
-        } else {
-          project.filter = false;
-        }
+        project.tasks.forEach((task) => {
+          if (project.projectName.toLowerCase() === projectName.toLowerCase()) {
+            task.filter = true;
+          } else {
+            task.filter = false;
+          }
+        });
       });
     },
   },

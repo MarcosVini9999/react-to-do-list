@@ -5,10 +5,10 @@ import { ToDoListWrapper } from "./ToDoList.style";
 interface Tasks {
   title: string;
   dateTime: string;
+  filter: boolean;
 }
 interface Project {
   projectName: string;
-  filter: boolean;
   tasks: Array<Tasks>;
 }
 
@@ -25,19 +25,19 @@ export const ToDoList: React.FC<ToDoListProps> = ({
   return (
     <ToDoListWrapper>
       {projects.map((project, projectIndex) =>
-        project.filter
-          ? project.tasks.map((task, taskIndex) => (
-              <ActivityCard
-                key={Number(projectIndex.toString() + taskIndex.toString())}
-                actionType="delete"
-                taskTitle={task.title}
-                dateTime={task.dateTime}
-                taskProject={project.projectName}
-                projectNames={projectNames}
-                onRemoveTask={onRemoveTask}
-              />
-            ))
-          : null
+        project.tasks.map((task, taskIndex) =>
+          task.filter ? (
+            <ActivityCard
+              key={Number(projectIndex.toString() + taskIndex.toString())}
+              actionType="delete"
+              taskTitle={task.title}
+              dateTime={task.dateTime}
+              taskProject={project.projectName}
+              projectNames={projectNames}
+              onRemoveTask={onRemoveTask}
+            />
+          ) : null
+        )
       )}
     </ToDoListWrapper>
   );
