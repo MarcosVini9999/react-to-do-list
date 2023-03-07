@@ -12,7 +12,12 @@ import { ProjectList } from "@/components";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/stores";
-import { addProject } from "@/stores/features/projectSlicer";
+import {
+  addProject,
+  filterTasksByWeek,
+  filterTasksByToday,
+  allFiltersOn,
+} from "@/stores/features/projectSlicer";
 
 interface SideMenuProps {
   id: string;
@@ -48,9 +53,27 @@ export const SideMenu: React.FC<SideMenuProps> = ({ id }) => {
       <SideMenuWrapper>
         <Box className="borderBox"></Box>
         <dl id="inbox-filter">
-          <Button>Inbox</Button>
-          <Button>Today</Button>
-          <Button>Week</Button>
+          <Button
+            onClick={() => {
+              dispatch(allFiltersOn({}));
+            }}
+          >
+            Inbox
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(filterTasksByToday({}));
+            }}
+          >
+            Today
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(filterTasksByWeek({}));
+            }}
+          >
+            Week
+          </Button>
         </dl>
         <Box className="borderBox"></Box>
         <dl>

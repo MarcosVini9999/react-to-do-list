@@ -7,6 +7,7 @@ import {
   removeProject,
   filterProjectName,
 } from "@/stores/features/projectSlicer";
+import { v4 as uuidv4 } from "uuid";
 
 interface ProjectListProps {
   projects: Array<string>;
@@ -37,6 +38,7 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
           onClick={() => {
             handleFilterProjectName(project);
           }}
+          key={uuidv4()}
         >
           <Typography>{project}</Typography>
           <Tooltip

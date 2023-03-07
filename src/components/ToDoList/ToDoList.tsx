@@ -1,6 +1,7 @@
 import React from "react";
 import { ActivityCard } from "../ActivityCard/ActivityCard";
 import { ToDoListWrapper } from "./ToDoList.style";
+import { v4 as uuidv4 } from "uuid";
 
 interface Tasks {
   title: string;
@@ -24,11 +25,11 @@ export const ToDoList: React.FC<ToDoListProps> = ({
   const projectNames = projects.map((project) => project.projectName);
   return (
     <ToDoListWrapper>
-      {projects.map((project, projectIndex) =>
-        project.tasks.map((task, taskIndex) =>
+      {projects.map((project) =>
+        project.tasks.map((task) =>
           task.filter ? (
             <ActivityCard
-              key={Number(projectIndex.toString() + taskIndex.toString())}
+              key={uuidv4()}
               actionType="delete"
               taskTitle={task.title}
               dateTime={task.dateTime}

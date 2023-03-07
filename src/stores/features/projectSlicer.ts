@@ -1,4 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dayjs from "dayjs";
+import * as isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 
 const initialState = [
   {
@@ -97,6 +100,40 @@ export const projectSlicer = createSlice({
         });
       });
     },
+    filterTasksByWeek: (state, action) => {
+      const weekStart = dayjs().startOf("week");
+      const weekEnd = dayjs().endOf("week");
+      state.forEach((project) => {
+        project.tasks.forEach((task) => {
+          const taskDate = dayjs(task.dateTime);
+          if (taskDate.isBetween(weekStart, weekEnd, "day", "[]")) {
+            task.filter = true;
+          } else {
+            task.filter = false;
+          }
+        });
+      });
+    },
+    filterTasksByToday: (state, action) => {
+      const today = dayjs();
+      state.forEach((project) => {
+        project.tasks.forEach((task) => {
+          const taskDate = dayjs(task.dateTime);
+          if (taskDate.isSame(today, "day")) {
+            task.filter = true;
+          } else {
+            task.filter = false;
+          }
+        });
+      });
+    },
+    allFiltersOn: (state, action) => {
+      state.forEach((project) => {
+        project.tasks.forEach((task) => {
+          task.filter = true;
+        });
+      });
+    },
   },
 });
 
@@ -106,5 +143,8 @@ export const {
   addTask,
   removeTask,
   filterProjectName,
+  filterTasksByWeek,
+  filterTasksByToday,
+  allFiltersOn,
 } = projectSlicer.actions;
 export default projectSlicer.reducer;
