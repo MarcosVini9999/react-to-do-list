@@ -2,17 +2,7 @@ import React from "react";
 import { ActivityCard } from "../ActivityCard/ActivityCard";
 import { ToDoListWrapper } from "./ToDoList.style";
 import { v4 as uuidv4 } from "uuid";
-
-interface Tasks {
-  title: string;
-  dateTime: string;
-  filter: boolean;
-}
-interface Project {
-  projectName: string;
-  tasks: Array<Tasks>;
-}
-
+import { Project } from "@/config/interfaces/Itask";
 interface ToDoListProps {
   projects: Array<Project>;
   onRemoveTask: (projectName: string, taskTitle: string) => void;
@@ -31,11 +21,10 @@ export const ToDoList: React.FC<ToDoListProps> = ({
             <ActivityCard
               key={uuidv4()}
               actionType="delete"
-              taskTitle={task.title}
-              dateTime={task.dateTime}
               taskProject={project.projectName}
               projectNames={projectNames}
               onRemoveTask={onRemoveTask}
+              task={task}
             />
           ) : null
         )

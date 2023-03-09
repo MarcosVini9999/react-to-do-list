@@ -15,13 +15,15 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Checkbox from "@mui/material/Checkbox";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { MobileDateTimePicker, DateTimePicker } from "@mui/x-date-pickers";
+import { ActivityDialog } from "@/components";
+import { Task } from "@/config/interfaces/Itask";
 
 interface ActivityCardProps {
   actionType?: "add" | "delete";
-  taskTitle?: string;
-  dateTime?: string;
+  task?: Task;
   projectNames: Array<string>;
   taskProject?: string;
   onAddTask?: (
@@ -34,21 +36,23 @@ interface ActivityCardProps {
 
 export const ActivityCard: React.FC<ActivityCardProps> = ({
   actionType = "delete",
-  taskTitle,
-  dateTime,
   projectNames,
   taskProject,
   onAddTask,
   onRemoveTask,
+  task,
 }) => {
   const [date, setDate] = React.useState<Dayjs | null>(
-    dayjs(dateTime ? dateTime : undefined)
+    dayjs(task?.dateTime ? task.dateTime : undefined)
   );
-  const [title, setTitle] = React.useState<string>(taskTitle ? taskTitle : "");
+  const [title, setTitle] = React.useState<string>(
+    task?.title ? task.title : ""
+  );
   const [project, setProject] = React.useState<string>(
     taskProject ? taskProject : ""
   );
   const [newProject, setNewProject] = React.useState<string>("");
+  const [activityDialogStatus, setActivityDialogStatus] = React.useState(false);
 
   const handleDate = (date: Dayjs | null) => {
     setDate(date);
@@ -80,6 +84,9 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
     if (title && date && project) {
       if (onRemoveTask) onRemoveTask(project, title);
     }
+  };
+  const handleActivityDialogStatus = () => {
+    setActivityDialogStatus(true);
   };
 
   return (
@@ -136,14 +143,27 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="Delete" onClick={handleRemoveProject}>
-              <IconButton>
-                <DeleteIcon />
-              </IconButton>
-            </Tooltip>
+            <React.Fragment>
+              <Tooltip title="Delete" onClick={handleRemoveProject}>
+                <IconButton>
+                  <DeleteIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Open Menu" onClick={handleActivityDialogStatus}>
+                <IconButton>
+                  <MenuOpenIcon />
+                </IconButton>
+              </Tooltip>
+            </React.Fragment>
           )}
         </Box>
       </ActivityCardWrapper>
+      <ActivityDialog
+        activityDialogStatus={activityDialogStatus}
+        changeActivityDialogStatus={setActivityDialogStatus}
+        project={project}
+        task={task ? task : undefined}
+      />
     </ActivityCardContainer>
   );
 };

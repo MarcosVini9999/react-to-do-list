@@ -13,6 +13,9 @@ export const ActivityCardContainer = styled(Box)({
     margin: "auto",
   },
   "& .actionActivityWrapper": {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     margin: "auto",
     "& button": {
       color: "#808080",

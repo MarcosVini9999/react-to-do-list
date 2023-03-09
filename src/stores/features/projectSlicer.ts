@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Task } from "@/config/interfaces/Itask";
 import dayjs from "dayjs";
 import * as isBetween from "dayjs/plugin/isBetween";
+import { v4 as uuidv4 } from "uuid";
 dayjs.extend(isBetween);
 
 const initialState = [
@@ -8,9 +10,11 @@ const initialState = [
     projectName: "home",
     tasks: [
       {
+        key: "0",
         title: "buy X things",
         dateTime: "2018-01-01T00:00",
         filter: true,
+        description: "",
       },
     ],
   },
@@ -18,9 +22,11 @@ const initialState = [
     projectName: "Studies",
     tasks: [
       {
+        key: "1",
         title: "math test",
         dateTime: "2018-01-01T00:00",
         filter: true,
+        description: "",
       },
     ],
   },
@@ -56,18 +62,22 @@ export const projectSlicer = createSlice({
       );
       if (projectIndex !== -1) {
         state[projectIndex].tasks.push({
+          key: uuidv4(),
           title: action.payload.title,
           dateTime: action.payload.dateTime,
           filter: true,
+          description: "",
         });
       } else {
         state.push({
           projectName: action.payload.projectName,
           tasks: [
             {
+              key: uuidv4(),
               title: action.payload.title,
               dateTime: action.payload.dateTime,
               filter: true,
+              description: "",
             },
           ],
         });
@@ -134,6 +144,23 @@ export const projectSlicer = createSlice({
         });
       });
     },
+    updateTask: (state, action) => {
+      const findTask = (task: Task) => {
+        if (task.key === action.payload.key) {
+          const newTask = {
+            ...task,
+            ...action.payload,
+          };
+          task = newTask;
+        }
+        console.log(task);
+        return task;
+      };
+      state = state.map((project) => {
+        project.tasks = project.tasks.map(findTask);
+        return project;
+      });
+    },
   },
 });
 
@@ -146,5 +173,6 @@ export const {
   filterTasksByWeek,
   filterTasksByToday,
   allFiltersOn,
+  updateTask,
 } = projectSlicer.actions;
 export default projectSlicer.reducer;
