@@ -1,7 +1,8 @@
 import React from "react";
-import { HeaderContainer } from "./PageHeader.style";
+import { ActionHeaderWrapper, HeaderContainer } from "./PageHeader.style";
 import { Link } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 
 interface PageHeaderProps {
   menuId: string;
@@ -15,9 +16,11 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ menuId }) => {
 
   return (
     <HeaderContainer id="header">
-      <Button id="btn-mobile" onClick={toggleMenu}>
-        button
-      </Button>
+      <ActionHeaderWrapper>
+        <IconButton onClick={toggleMenu}>
+          <MenuIcon />
+        </IconButton>
+      </ActionHeaderWrapper>
       <Link to="/" id="logo">
         YOUR TO DO LIST
       </Link>

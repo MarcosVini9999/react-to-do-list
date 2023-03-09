@@ -1,4 +1,5 @@
 import { styled } from "@mui/system";
+import { Box } from "@mui/material";
 
 export const HeaderContainer = styled("header")({
   display: "flex",
@@ -9,13 +10,6 @@ export const HeaderContainer = styled("header")({
   "@media (max-width: 900px)": {
     justifyContent: "space-between",
   },
-  "& #btn-mobile": {
-    display: "none",
-    justifyContent: "space-between !important",
-    "@media (max-width: 900px)": {
-      display: "block",
-    },
-  },
   "& #logo": {
     color: "black",
     textDecoration: "none",
@@ -23,4 +17,12 @@ export const HeaderContainer = styled("header")({
     padding: "15px",
     textAlign: "right",
   },
+});
+
+export const ActionHeaderWrapper = styled(Box)({
+  display: "none",
+  "@media (max-width: 900px)": {
+    display: "block",
+  },
+  marginBlock: "auto",
 });
