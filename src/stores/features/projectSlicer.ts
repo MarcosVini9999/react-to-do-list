@@ -153,7 +153,6 @@ export const projectSlicer = createSlice({
           };
           task = newTask;
         }
-        console.log(task);
         return task;
       };
       state = state.map((project) => {
