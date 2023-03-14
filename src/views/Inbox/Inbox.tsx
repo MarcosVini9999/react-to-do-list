@@ -25,10 +25,10 @@ export const Inbox: React.FC = () => {
     );
   };
 
-  const hadleRemoveTask = (projectName: string, taskTitle: string) => {
+  const hadleRemoveTask = (projectName: string, key: string) => {
     dispatch(
       removeTask({
-        title: taskTitle,
+        key: key,
         projectName: projectName,
       })
     );

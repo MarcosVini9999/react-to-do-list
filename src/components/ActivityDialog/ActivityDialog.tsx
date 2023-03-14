@@ -5,10 +5,23 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 import { BootstrapDialog, DialogDescription } from "./ActivityDialog.style";
-import { Button, DialogActions, TextareaAutosize } from "@mui/material";
+import {
+  Autocomplete,
+  Button,
+  DialogActions,
+  TextareaAutosize,
+  TextField,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { Task } from "@/config/interfaces/Itask";
 import { updateTask } from "@/stores/features/projectSlicer";
+import {
+  MobileDateTimePicker,
+  DateTimePicker,
+  LocalizationProvider,
+} from "@mui/x-date-pickers";
+import dayjs, { Dayjs } from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 interface DialogTitleProps {
   id: string;
@@ -20,7 +33,7 @@ interface ActivityDialogProps {
   activityDialogStatus: boolean;
   changeActivityDialogStatus: (status: boolean) => void;
   project: string;
-  task: Task | undefined;
+  task: Task;
 }
 
 function BootstrapDialogTitle(props: DialogTitleProps) {
@@ -54,8 +67,14 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
   task,
 }) => {
   const dispatch = useDispatch();
+  const [title, setTitle] = React.useState<string>(
+    task?.title ? task.title : ""
+  );
   const [description, setDescription] = React.useState<string>(
     task?.description ? task.description : ""
+  );
+  const [dateTime, setDateTime] = React.useState<Dayjs | null>(
+    dayjs(task?.dateTime ? task?.dateTime : undefined)
   );
 
   const handleClose = () => {
@@ -63,9 +82,14 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
     dispatch(
       updateTask({
         ...task,
+        title,
+        dateTime,
         description,
       })
     );
+  };
+  const handleTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
   const handleDescription = (
     event:
@@ -73,6 +97,9 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     setDescription(event.target.value);
+  };
+  const handleDate = (date: Dayjs | null) => {
+    setDateTime(date);
   };
 
   return (
@@ -82,22 +109,44 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
       open={activityDialogStatus}
     >
       <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-        {task?.title.toUpperCase()}
+        {project.toUpperCase()}
       </BootstrapDialogTitle>
       <DialogContent dividers>
         <DialogDescription>
-          <Typography variant="caption">DATE: </Typography>
-          {task?.dateTime?.toString()}
+          <TextField
+            label="Title"
+            variant="outlined"
+            className="activityPropertiesLabel"
+            onChange={handleTitle}
+            value={title}
+          />
         </DialogDescription>
         <DialogDescription>
-          <Typography variant="caption">PROJECT: </Typography>
-          {project.toUpperCase()}
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {document.body.clientWidth > 900 ? (
+              <DateTimePicker
+                label="Date - Time"
+                value={dayjs(dateTime)}
+                onChange={handleDate}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            ) : (
+              <MobileDateTimePicker
+                value={dayjs("2022-04-07")}
+                onChange={handleDate}
+                label="With error handler"
+                inputFormat="YYYY/MM/DD hh:mm a"
+                mask="____/__/__ __:__ _M"
+                renderInput={(params) => <TextField {...params} />}
+              />
+            )}
+          </LocalizationProvider>
         </DialogDescription>
+
         <DialogDescription>
-          <Typography variant="caption">DESCRIPTION:</Typography>
           <TextareaAutosize
-            minRows={3}
-            placeholder="Digite seu texto aqui"
+            minRows={5}
+            placeholder="Enter task description here"
             value={description}
             onChange={handleDescription}
           />
@@ -105,7 +154,7 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
       </DialogContent>
       <DialogActions>
         <Button autoFocus onClick={handleClose}>
-          Save changes
+          Save task changes
         </Button>
       </DialogActions>
     </BootstrapDialog>

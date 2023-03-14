@@ -22,7 +22,7 @@ import { ActivityDialog } from "@/components";
 import { Task } from "@/config/interfaces/Itask";
 
 interface ActivityCardProps {
-  actionType?: "add" | "delete";
+  actionType: "add" | "delete";
   task?: Task;
   projectNames: Array<string>;
   taskProject?: string;
@@ -81,8 +81,8 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
     }
   };
   const handleRemoveProject = () => {
-    if (title && date && project) {
-      if (onRemoveTask) onRemoveTask(project, title);
+    if (title && date && project && task?.key) {
+      if (onRemoveTask) onRemoveTask(project, task.key);
     }
   };
   const handleActivityDialogStatus = () => {
@@ -98,6 +98,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
       )}
       <ActivityCardWrapper>
         <TextField
+          disabled={actionType === "delete"}
           label="Title"
           variant="outlined"
           className="activityPropertiesLabel"
@@ -107,6 +108,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {document.body.clientWidth > 900 ? (
             <DateTimePicker
+              disabled={actionType === "delete"}
               label="Date - Time"
               value={date}
               onChange={handleDate}
@@ -115,6 +117,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
             />
           ) : (
             <MobileDateTimePicker
+              disabled={actionType === "delete"}
               value={date}
               onChange={handleDate}
               label="With error handler"
@@ -126,6 +129,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           )}
         </LocalizationProvider>
         <Autocomplete
+          disabled={actionType === "delete"}
           options={[...projectNames, newProject]}
           renderInput={(params) => <TextField {...params} label="Project" />}
           className="activityPropertiesLabel"
@@ -158,12 +162,14 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
           )}
         </Box>
       </ActivityCardWrapper>
-      <ActivityDialog
-        activityDialogStatus={activityDialogStatus}
-        changeActivityDialogStatus={setActivityDialogStatus}
-        project={project}
-        task={task ? task : undefined}
-      />
+      {task ? (
+        <ActivityDialog
+          activityDialogStatus={activityDialogStatus}
+          changeActivityDialogStatus={setActivityDialogStatus}
+          project={project}
+          task={task}
+        />
+      ) : null}
     </ActivityCardContainer>
   );
 };

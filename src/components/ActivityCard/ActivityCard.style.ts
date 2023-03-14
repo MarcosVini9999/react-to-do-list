@@ -24,6 +24,10 @@ export const ActivityCardContainer = styled(Box)({
       color: "#363636",
     },
   },
+  "& .Mui-disabled": {
+    color: "rgba(0, 0, 0, 0.6) !important",
+    "-webkit-text-fill-color": "rgba(0, 0, 0, 1) !important",
+  },
 });
 
 export const ActivityCardWrapper = styled(Box)({

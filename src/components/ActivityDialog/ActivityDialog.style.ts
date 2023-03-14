@@ -19,4 +19,7 @@ export const DialogDescription = styled(Box)({
   marginBottom: "10px",
   display: "flex",
   alignItems: "baseline",
+  "& .MuiFormControl-root, textarea": {
+    width: "100%",
+  },
 });

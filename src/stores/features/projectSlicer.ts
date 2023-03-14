@@ -85,14 +85,15 @@ export const projectSlicer = createSlice({
     },
     removeTask: (state, action) => {
       const projectName = action.payload.projectName;
-      const taskTitle = action.payload.title;
+      const taskKey = action.payload.key;
       const projectIndex = state.findIndex(
         (project) => project.projectName === projectName
       );
       if (projectIndex !== -1) {
         const taskIndex = state[projectIndex].tasks.findIndex(
-          (task) => task.title === taskTitle
+          (task) => task.key === taskKey
         );
+
         if (taskIndex !== -1) {
           state[projectIndex].tasks.splice(taskIndex, 1);
         }
