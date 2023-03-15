@@ -10,6 +10,9 @@ export const ToDoListWrapper = styled(Box)({
   margin: "10px",
   overflowY: "scroll",
   boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+  "@media (max-width: 400px)": {
+    padding: "0px",
+  },
   "&::-webkit-scrollbar": {
     width: "0.4em",
   },

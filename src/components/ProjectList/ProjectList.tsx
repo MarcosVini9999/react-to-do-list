@@ -34,7 +34,6 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
     <ProjectsContainer>
       {projects.map((project) => (
         <ProjectButtonWrapper
-          title={project.toUpperCase()}
           onClick={() => {
             handleFilterProjectName(project);
           }}

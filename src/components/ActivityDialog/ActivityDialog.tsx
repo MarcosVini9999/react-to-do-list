@@ -109,7 +109,7 @@ export const ActivityDialog: React.FC<ActivityDialogProps> = ({
       open={activityDialogStatus}
     >
       <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-        {project.toUpperCase()}
+        {project}
       </BootstrapDialogTitle>
       <DialogContent dividers>
         <DialogDescription>

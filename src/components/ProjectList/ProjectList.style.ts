@@ -39,6 +39,7 @@ export const ProjectsContainer = styled(Box)({
 
 export const ProjectButtonWrapper = styled(Button)({
   width: "100%",
+  textTransform: "unset",
   "& p": {
     color: "black",
     fontSize: "12px",

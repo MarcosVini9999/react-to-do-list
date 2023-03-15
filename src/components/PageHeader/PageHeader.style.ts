@@ -11,11 +11,14 @@ export const HeaderContainer = styled("header")({
     justifyContent: "space-between",
   },
   "& #logo": {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
     color: "black",
     textDecoration: "none",
     font: "italic 1.2em 'Fira Sans', serif",
     padding: "15px",
-    textAlign: "right",
+    textAlign: "center",
   },
 });
 
