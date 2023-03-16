@@ -8,6 +8,8 @@ import {
   filterProjectName,
 } from "@/stores/features/projectSlicer";
 import { v4 as uuidv4 } from "uuid";
+import EditIcon from "@mui/icons-material/Edit";
+import { ProjectCard, ProjectDialog } from "@/components";
 
 interface ProjectListProps {
   projects: Array<string>;
@@ -33,24 +35,11 @@ export const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
   return (
     <ProjectsContainer>
       {projects.map((project) => (
-        <ProjectButtonWrapper
-          onClick={() => {
-            handleFilterProjectName(project);
-          }}
-          key={uuidv4()}
-        >
-          <Typography>{project}</Typography>
-          <Tooltip
-            title=""
-            onClick={() => {
-              handleRemoveProject(project);
-            }}
-          >
-            <IconButton>
-              <DeleteIcon />
-            </IconButton>
-          </Tooltip>
-        </ProjectButtonWrapper>
+        <ProjectCard
+          handleRemoveProject={handleRemoveProject}
+          handleFilterProjectName={handleFilterProjectName}
+          project={project}
+        />
       ))}
     </ProjectsContainer>
   );

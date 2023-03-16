@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Task } from "@/config/interfaces/Itask";
+import { Task, Project } from "@/config/interfaces/Itask";
 import dayjs from "dayjs";
 import * as isBetween from "dayjs/plugin/isBetween";
 import { v4 as uuidv4 } from "uuid";
@@ -161,6 +161,19 @@ export const projectSlicer = createSlice({
         return project;
       });
     },
+    updateProjectName: (state, action) => {
+      const { oldProjectName, projectName } = action.payload;
+      return state.map((project) => {
+        if (project.projectName === oldProjectName) {
+          return {
+            ...project,
+            projectName,
+          };
+        } else {
+          return project;
+        }
+      });
+    },
   },
 });
 
@@ -174,5 +187,6 @@ export const {
   filterTasksByToday,
   allFiltersOn,
   updateTask,
+  updateProjectName,
 } = projectSlicer.actions;
 export default projectSlicer.reducer;

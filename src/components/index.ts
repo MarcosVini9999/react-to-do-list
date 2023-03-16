@@ -6,3 +6,5 @@ export { ActivityCard } from "./ActivityCard/ActivityCard";
 export { ProjectList } from "./ProjectList/ProjectList";
 export { ToDoList } from "./ToDoList/ToDoList";
 export { ActivityDialog } from "./ActivityDialog/ActivityDialog";
+export { ProjectDialog } from "./ProjectDialog/ProjectDialog";
+export { ProjectCard } from "./ProjectCard/ProjectCard";
