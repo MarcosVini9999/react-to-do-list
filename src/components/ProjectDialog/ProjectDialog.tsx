@@ -41,7 +41,7 @@ export const ProjectDialog: React.FC<ProjectDialogProps> = ({
 
   return (
     <Dialog open={projectDialogStatus} onClose={handleClose}>
-      <DialogTitle>Edit Task</DialogTitle>
+      <DialogTitle>Edit Project Name</DialogTitle>
       <DialogContent>
         <DialogContentText>
           Please enter the new name for the selected project ({project}).
