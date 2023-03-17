@@ -29,7 +29,7 @@ export const ToDoList: React.FC<ToDoListProps> = ({
   );
   const sortedTasks = allTasks
     .filter((task) => task.filter)
-    .sort((a, b) => dayjs(b.dateTime).diff(dayjs(a.dateTime)));
+    .sort((a, b) => dayjs(a.dateTime).diff(dayjs(b.dateTime)));
 
   return (
     <ToDoListWrapper>

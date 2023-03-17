@@ -114,6 +114,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               onChange={handleDate}
               renderInput={(params) => <TextField {...params} />}
               className="activityPropertiesLabel"
+              minDate={dayjs()}
             />
           ) : (
             <MobileDateTimePicker
@@ -125,6 +126,7 @@ export const ActivityCard: React.FC<ActivityCardProps> = ({
               mask="____/__/__ __:__ _M"
               renderInput={(params) => <TextField {...params} />}
               className="activityPropertiesLabel"
+              minDate={dayjs()}
             />
           )}
         </LocalizationProvider>
