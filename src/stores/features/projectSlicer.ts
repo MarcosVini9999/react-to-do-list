@@ -163,6 +163,9 @@ export const projectSlicer = createSlice({
     },
     updateProjectName: (state, action) => {
       const { oldProjectName, projectName } = action.payload;
+
+      if (state.some((element) => element.projectName === projectName)) return;
+
       return state.map((project) => {
         if (project.projectName === oldProjectName) {
           return {
